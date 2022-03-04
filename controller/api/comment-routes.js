@@ -18,7 +18,6 @@ router.get('/:id', (req, res) => {
         })
         .then(dbCommentData => res.json(dbCommentData))
         .catch(err => {
-            console.log(err);
             res.status(500).json(err);
         })
 });
@@ -32,7 +31,6 @@ router.post('/', withAuth, (req, res) => {
             })
             .then(dbCommentData => res.json(dbCommentData))
             .catch(err => {
-                console.log(err);
                 res.status(400).json(err);
             })
     }
@@ -47,7 +45,7 @@ router.put('/:id', withAuth, (req, res) => {
         }
     }).then(dbCommentData => {
         if (!dbCommentData) {
-            res.status(404).json({ message: 'No comment found with this id' });
+            res.status(404).json({ message: 'ID not found' });
             return;
         }
         res.json(dbCommentData);
