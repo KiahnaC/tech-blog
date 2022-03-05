@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../../models');
 const sequelize = require('../../config/connection');
-const withAuth = require('../../utils/auth');
+const withAuth = require('../../utils/authentication');
 
 router.get('/', (req, res) => {
     console.log('======================');
@@ -72,7 +72,7 @@ router.get('/:id', (req, res) => {
         });
 });
 
-router.post('/', withAuth, (req, res) => {
+router.post('/:id', withAuth, (req, res) => {
     Post.create({
             title: req.body.title,
             content: req.body.content,
@@ -81,6 +81,7 @@ router.post('/', withAuth, (req, res) => {
         .then(dbPostData => res.json(dbPostData))
         .catch(err => {
             res.status(500).json(err);
+            
         });
 });
 
